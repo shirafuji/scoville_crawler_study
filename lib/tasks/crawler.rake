@@ -1,7 +1,7 @@
 namespace :crawler do
   desc 'Run the crawler'
   task run: :environment do
-    p "started crawling..."
+    puts "started crawling..."
 
     url = "https://tech.sc0ville.com/"
     Anemone.crawl(url, depth_limit: 0) do |anemone|
@@ -16,6 +16,7 @@ namespace :crawler do
         end
       end
     end
-    p "done"
+    
+    puts "done"
   end
 end
