@@ -1,7 +1,7 @@
 namespace :crawler do
   desc 'Run the crawler'
   task run: :environment do
-    p "started crawling..."
+    puts "started crawling..."
 
     url = "https://tech.sc0ville.com/"
     Anemone.crawl(url, depth_limit: 0) do |anemone|
@@ -11,11 +11,31 @@ namespace :crawler do
         article_divs.each do |article|
           title = article.xpath(%Q[div[@class="title"]/h2]).text
           date = article.xpath(%Q[div[@class="title"]/div[@class="info"]/p[2]]).text
-          p title
-          p date
+          if Article.find_by(title: title).present?
+            puts "Article #{title} already exists"
+          else
+            params = {
+              title: title,
+              date: date
+            }
+            if Article.create(params)
+              puts "created new Article: #{title}"
+            else
+              puts "failed to create Article: #{title}"
+            end
+          end
         end
       end
     end
-    p "done"
+
+    puts "done"
+  end
+end
+
+namespace :myCrawler do
+  desc 'Run the crawler'
+  task run: :environment do
+    # 自分のcrawlerを作りましょう
+    puts "started my crawler..."
   end
 end
