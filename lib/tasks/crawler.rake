@@ -31,3 +31,11 @@ namespace :crawler do
     puts "done"
   end
 end
+
+namespace :myCrawler do
+  desc 'Run the crawler'
+  task run: :environment do
+    # 自分のcrawlerを作りましょう
+    puts "started my crawler..."
+  end
+end
