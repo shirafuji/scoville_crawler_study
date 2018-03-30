@@ -35,12 +35,12 @@ ___
 ## 2. railsのgemについて
 ___
 ### gemとは？
-Ruby用のパッケージ管理ツール。
+Ruby用のパッケージ管理ツール。  
 つまり、railsでライブラリを利用するときに必要なツール。
 ___
 ### railsでのgemの利用法
 Bundler:
-Railsアプリケーションに必要となるGemパッケージの種類やバージョンを管理する。
+Railsアプリケーションに必要となるGemパッケージの種類やバージョンを管理する。  
 利用したいgemパッケージの情報 (名前とバージョン)をGemfileに書き込み`bundle install`というコマンドを実行するとインストールが完了。
 ___
 ### gemパッケージの例
@@ -52,11 +52,11 @@ ___
 ## 3. webスクレイピングについて
 ___
 ### webスクレイピングとは？
-Webスクレイピングとは、WebサイトからWebページのHTMLデータを収集して、特定のデータを抽出、整形し直すこと。
+Webスクレイピングとは、WebサイトからWebページのHTMLデータを収集して、特定のデータを抽出、整形し直すこと。  
 クロールなどとも言う。
 ___
 ### 実行理由
-webスクレイピングをすれば、公式に公開されていない情報も、web上から自動で素早く収集することができる。
+webスクレイピングをすれば、公式に公開されていない情報も、web上から自動で素早く収集することができる。  
 例）hoskomi
 ___
 ## 4. webスクレイピング体験
@@ -82,7 +82,7 @@ Anemone.crawl(url, depth_limit: 0) do |anemone|
   ...
 end
 ```
-urlで指定したページからクロールを始める。
+urlで指定したページからクロールを始める。  
 depth_limitはどれだけの深さまでクロールを続けるかを意味するオプション。depth_limit: 0は最初に飛ぶページのみをクロールするという意味。
 ___
 ```
@@ -90,21 +90,21 @@ anemone.on_every_page do |page|
   ...
 end
 ```
-可能な限りすべてのページをクロールするというメソッド。
+可能な限りすべてのページをクロールするというメソッド。  
 ここで`.on_pages_like(正規表現) do |page|`を使うと、その正規表現に合ったページのみをクロールする
 ___
 ```
 doc = Nokogiri::HTML.parse(page.body)
 ```
-ここでページのbodyを、Nokogiri形式に変換している。
+ここでページのbodyを、Nokogiri形式に変換している。  
 このおかげで、xpathなどで要素を取得することができている。
 ___
 ```
 article_divs = doc.xpath(%Q[/html/body/main/section/div[1]/div[@class="articleFeatured"]])
 ```
-これは、＜html＞の中の＜body＞の中の＜main＞の中の＜section＞の中の＜div＞の１番目の中の＜div＞のclass="articleFeatured"であるものをarticle_divsに入れている。(なんとなくわかっていただけると思います。)
-(%Q[]はその中身を文字列にするもの)
-（ちなみにブラウザで検証からxpathをコピーすることができます。）
+これは、＜html＞の中の＜body＞の中の＜main＞の中の＜section＞の中の＜div＞の１番目の中の＜div＞のclass="articleFeatured"であるものをarticle_divsに入れている。(なんとなくわかっていただけると思います。)  
+(%Q[]はその中身を文字列にするもの)  
+（ちなみにブラウザで検証からxpathをコピーすることができます。）  
 これにより、記事のタイトルと日付を取得しています。
 ___
 それ以降の部分では、それぞれの記事の＜div＞で再びxpathを利用してタイトルと日付を取得して、その情報を利用してArticleをcreateしています。
@@ -115,19 +115,19 @@ ___
 ##### 自分のクローラーを作る
 ___
 ### 便利なメソッドやオプション
-Anemoneの便利なメソッドや、オプションを紹介します。
-`Anemone.crawl()`
-のオプションとしては、`depth_limit`, `delay`, `user_agent`などがある。
+Anemoneの便利なメソッドや、オプションを紹介します。  
+`Anemone.crawl()`  
+のオプションとしては、`depth_limit`, `delay`, `user_agent`などがある。  
 これにより、クロールする上での階層、間隔、UAが指定できる。
 ___
 メソッド
-* `.on_pages_like(正規表現) do |page|`
+* `.on_pages_like(正規表現) do |page|`  
 クロールするページを正規表現によって限定することができる。
 ___
 メソッド
-* `.skip_links_like(正規表現)`
+* `.skip_links_like(正規表現)`  
 指定された正規表現にあったページはクロールしない。
 ___
 ### 自分で作ってみましょう！
-サンプルアプリケーションの`lib/tasks/crawler.rake`にmyCrawlerがあります。
+サンプルアプリケーションの`lib/tasks/crawler.rake`にmyCrawlerがあります。  
 自分で中身を書いてみましょう！
