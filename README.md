@@ -130,4 +130,5 @@ ___
 ___
 ### 自分で作ってみましょう！
 サンプルアプリケーションの`lib/tasks/crawler.rake`にmyCrawlerがあります。  
+今回は、先ほどcreateしたArticle1つ1つにcategoryの情報を入れるcrawlerを作ります。  
 自分で中身を書いてみましょう！
